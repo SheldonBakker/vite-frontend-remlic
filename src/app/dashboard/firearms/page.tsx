@@ -5,7 +5,6 @@ import {
   getFirearms,
   deleteFirearm,
   type Firearm,
-  type PaginationCursor,
   type PaginatedFirearmsResponse,
   type SortBy,
   type SortOrder,
@@ -32,10 +31,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   serial_number: string;
@@ -67,14 +62,14 @@ function FirearmsPageContent(): React.JSX.Element {
     queryKey: ['firearms', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedFirearmsResponse> => {
       return getFirearms({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         serial_number: filters.serial_number || undefined,
         sort_by: filters.sort_by ?? undefined,
         sort_order: filters.sort_by ? filters.sort_order : undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

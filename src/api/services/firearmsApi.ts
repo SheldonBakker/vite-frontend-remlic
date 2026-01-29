@@ -76,7 +76,7 @@ export interface PaginatedFirearmsResponse {
     firearms: Firearm[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
 }
 
