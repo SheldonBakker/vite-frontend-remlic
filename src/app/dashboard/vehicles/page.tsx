@@ -5,7 +5,6 @@ import {
   getVehicles,
   deleteVehicle,
   type Vehicle,
-  type PaginationCursor,
   type PaginatedVehiclesResponse,
   type VehicleSortBy,
   type SortOrder,
@@ -35,10 +34,6 @@ const ITEMS_PER_PAGE = 20;
 
 const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   registration_number: string;
@@ -72,7 +67,7 @@ function VehiclesPageContent(): React.JSX.Element {
     queryKey: ['vehicles', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedVehiclesResponse> => {
       return getVehicles({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         year: filters.year ?? undefined,
         registration_number: filters.registration_number || undefined,
@@ -80,7 +75,7 @@ function VehiclesPageContent(): React.JSX.Element {
         sort_order: filters.sort_by ? filters.sort_order : undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

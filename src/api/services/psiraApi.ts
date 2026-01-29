@@ -1,4 +1,4 @@
-import type { DeleteResponse, PaginationCursor, SortOrder, BaseQueryParams } from '../types/shared';
+import type { DeleteResponse, SortOrder, BaseQueryParams } from '../types/shared';
 import { buildQueryString, buildUrl } from '../utils/queryBuilder';
 import apiClient from './apiClient';
 
@@ -66,7 +66,7 @@ export interface PaginatedPsiraResponse {
     officers: SavedPsiraOfficer[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
 }
 
@@ -91,4 +91,4 @@ interface PsiraOfficerResponse {
   };
 }
 
-export type { SortOrder, PaginationCursor };
+export type { SortOrder };

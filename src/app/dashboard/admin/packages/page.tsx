@@ -6,7 +6,6 @@ import {
   deletePackage,
 } from '@/api/services/adminApi';
 import type { IPackage, PaginatedPackagesResponse } from '@/types/admin';
-import type { PaginationCursor } from '@/api/types/shared';
 import { PackageCard } from '@/components/admin/PackageCard';
 import { FirearmCardSkeleton as RecordCardSkeleton } from '@/components/skeletons/RecordCardSkeleton';
 import { Button } from '@/components/ui/button';
@@ -27,10 +26,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   is_active: boolean | null;
@@ -59,13 +54,13 @@ export default function PackagesPage(): React.JSX.Element {
     queryKey: ['admin-packages', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedPackagesResponse> => {
       return getPackages({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         is_active: filters.is_active ?? undefined,
         type: filters.type ?? undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

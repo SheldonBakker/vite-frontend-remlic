@@ -5,7 +5,6 @@ import {
   getDrivers,
   deleteDriver,
   type PaginatedDriversResponse,
-  type PaginationCursor,
 } from '@/api/services/driverApi';
 import type { IDriver } from '@/types/driver';
 import DriverCard from '@/components/drivers/DriverCard';
@@ -30,10 +29,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   surname: string;
@@ -67,7 +62,7 @@ function DriversPageContent(): React.JSX.Element {
     queryKey: ['drivers', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedDriversResponse> => {
       return getDrivers({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         surname: filters.surname || undefined,
         id_number: filters.id_number || undefined,
@@ -75,7 +70,7 @@ function DriversPageContent(): React.JSX.Element {
         sortOrder: filters.sort_by ? filters.sort_order : undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

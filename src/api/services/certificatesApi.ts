@@ -1,4 +1,4 @@
-import type { DeleteResponse, PaginationCursor, SortOrder, BaseQueryParams } from '../types/shared';
+import type { DeleteResponse, SortOrder, BaseQueryParams } from '../types/shared';
 import { buildQueryString, buildUrl } from '../utils/queryBuilder';
 import apiClient from './apiClient';
 
@@ -73,7 +73,7 @@ export interface PaginatedCertificatesResponse {
     certificates: Certificate[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
 }
 
@@ -84,4 +84,4 @@ export interface GetCertificatesParams extends BaseQueryParams {
   sort_by?: SortBy;
 }
 
-export type { SortOrder, PaginationCursor };
+export type { SortOrder };

@@ -6,7 +6,6 @@ import {
   deletePermission,
 } from '@/api/services/adminApi';
 import type { IPermission, PaginatedPermissionsResponse } from '@/types/admin';
-import type { PaginationCursor } from '@/api/types/shared';
 import { PermissionCard } from '@/components/admin/PermissionCard';
 import { FirearmCardSkeleton as RecordCardSkeleton } from '@/components/skeletons/RecordCardSkeleton';
 import { Button } from '@/components/ui/button';
@@ -20,10 +19,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 export default function PermissionsPage(): React.JSX.Element {
   const [deletingPermissionId, setDeletingPermissionId] = useState<string | null>(null);
@@ -43,11 +38,11 @@ export default function PermissionsPage(): React.JSX.Element {
     queryKey: ['admin-permissions'],
     queryFn: async ({ pageParam }): Promise<PaginatedPermissionsResponse> => {
       return getPermissions({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

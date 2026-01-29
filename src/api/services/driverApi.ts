@@ -1,5 +1,5 @@
 import type { IDriver, ICreateDriverRequest, IUpdateDriverRequest, IGetDriversParams } from '@/types/driver';
-import type { DeleteResponse, PaginationCursor } from '../types/shared';
+import type { DeleteResponse } from '../types/shared';
 import { buildQueryString, buildUrl } from '../utils/queryBuilder';
 import apiClient from './apiClient';
 
@@ -48,8 +48,6 @@ export interface PaginatedDriversResponse {
     driver_licences: IDriver[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
 }
-
-export type { PaginationCursor };

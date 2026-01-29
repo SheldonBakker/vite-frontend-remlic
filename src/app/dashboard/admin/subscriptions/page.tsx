@@ -6,7 +6,6 @@ import {
   cancelSubscription,
 } from '@/api/services/adminApi';
 import type { ISubscription, SubscriptionStatus, PaginatedSubscriptionsResponse } from '@/types/admin';
-import type { PaginationCursor } from '@/api/types/shared';
 import { SubscriptionCard } from '@/components/admin/SubscriptionCard';
 import { FirearmCardSkeleton as RecordCardSkeleton } from '@/components/skeletons/RecordCardSkeleton';
 import { Button } from '@/components/ui/button';
@@ -28,10 +27,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   status: SubscriptionStatus | null;
@@ -61,13 +56,13 @@ export default function SubscriptionsPage(): React.JSX.Element {
     queryKey: ['admin-subscriptions', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedSubscriptionsResponse> => {
       return getSubscriptions({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         status: filters.status ?? undefined,
         profile_id: filters.profile_id || undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

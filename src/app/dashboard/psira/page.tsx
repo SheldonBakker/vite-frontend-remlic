@@ -5,7 +5,6 @@ import {
   getPsiraOfficers,
   deletePsiraOfficer,
   type SavedPsiraOfficer,
-  type PaginationCursor,
   type PaginatedPsiraResponse,
   type PsiraSortBy,
   type SortOrder,
@@ -32,10 +31,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   id_number: string;
@@ -67,14 +62,14 @@ function PsiraPageContent(): React.JSX.Element {
     queryKey: ['psira', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedPsiraResponse> => {
       return getPsiraOfficers({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         id_number: filters.id_number || undefined,
         sort_by: filters.sort_by ?? undefined,
         sort_order: filters.sort_by ? filters.sort_order : undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 

@@ -1,5 +1,4 @@
 // Admin domain type definitions
-import type { PaginationCursor } from '@/api/types/shared';
 
 export interface IPermission {
   id: string;
@@ -105,7 +104,7 @@ export interface PaginatedPermissionsResponse {
     permissions: IPermission[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
   timestamp: string;
   statusCode: number;
@@ -117,7 +116,7 @@ export interface PaginatedPackagesResponse {
     packages: IPackage[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
   timestamp: string;
   statusCode: number;
@@ -129,7 +128,7 @@ export interface PaginatedSubscriptionsResponse {
     subscriptions: ISubscription[];
   };
   pagination: {
-    nextCursor: PaginationCursor | null;
+    nextCursor: string | null;
   };
   timestamp: string;
   statusCode: number;

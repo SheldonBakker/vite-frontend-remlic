@@ -5,7 +5,6 @@ import {
   getCertificates,
   deleteCertificate,
   type Certificate,
-  type PaginationCursor,
   type PaginatedCertificatesResponse,
   type SortBy,
   type SortOrder,
@@ -32,10 +31,6 @@ interface DashboardContext {
 }
 
 const ITEMS_PER_PAGE = 20;
-
-function encodeCursor(cursor: PaginationCursor): string {
-  return btoa(JSON.stringify(cursor));
-}
 
 interface Filters {
   certificate_number: string;
@@ -67,14 +62,14 @@ function CertificatesPageContent(): React.JSX.Element {
     queryKey: ['certificates', filters],
     queryFn: async ({ pageParam }): Promise<PaginatedCertificatesResponse> => {
       return getCertificates({
-        cursor: pageParam ? encodeCursor(pageParam) : undefined,
+        cursor: pageParam ?? undefined,
         limit: ITEMS_PER_PAGE,
         certificate_number: filters.certificate_number || undefined,
         sort_by: filters.sort_by ?? undefined,
         sort_order: filters.sort_by ? filters.sort_order : undefined,
       });
     },
-    initialPageParam: null as PaginationCursor | null,
+    initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 
