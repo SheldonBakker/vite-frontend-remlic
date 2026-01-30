@@ -5,11 +5,12 @@ User-agent: *
 Allow: /
 Allow: /login
 Allow: /signup
+Allow: /terms
+Allow: /privacy
 
 # Disallow authenticated areas (crawlers can't access anyway)
 Disallow: /dashboard
 Disallow: /dashboard/*
-Disallow: /profile
 
 # Sitemap location
 Sitemap: https://firearmstudio.com/sitemap.xml
