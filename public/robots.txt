@@ -7,6 +7,7 @@ Allow: /login
 Allow: /signup
 Allow: /terms
 Allow: /privacy
+Allow: /faq
 
 # Disallow authenticated areas (crawlers can't access anyway)
 Disallow: /dashboard

@@ -59,4 +59,16 @@ export const PAGE_SEO: Record<string, PageSeoConfig> = {
       'Learn how Remlic protects your personal information and handles your data in compliance with POPIA.',
     path: '/privacy',
   },
+  faq: {
+    title: 'FAQ | Remlic',
+    description:
+      'Frequently asked questions about Remlic - firearms license tracking, PSIRA registration management, and compliance solutions in South Africa.',
+    path: '/faq',
+  },
+  notFound: {
+    title: 'Page Not Found | Remlic',
+    description: 'The page you are looking for does not exist.',
+    path: '/404',
+    noIndex: true,
+  },
 } as const;

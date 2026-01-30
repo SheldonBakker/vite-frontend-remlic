@@ -38,6 +38,7 @@ import PackagesPage from '@/app/dashboard/admin/packages/page';
 import SubscriptionsPage from '@/app/dashboard/admin/subscriptions/page';
 import TermsPage from '@/app/legal/terms/page';
 import PrivacyPage from '@/app/legal/privacy/page';
+import FaqPage from '@/app/faq/page';
 import { RequireGuest } from '@/components/auth/requireGuest';
 import { RequireAuth } from '@/components/auth/requireAuth';
 import RouteErrorElement from '@/components/errors/routeErrorElement';
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: 'privacy',
         element: <PrivacyPage />,
+      },
+      {
+        path: 'faq',
+        element: <FaqPage />,
       },
     ],
   },

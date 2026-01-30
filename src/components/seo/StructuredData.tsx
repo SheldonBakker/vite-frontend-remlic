@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import { SEO_CONFIG } from '@/constants/seo';
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 function setJsonLd(id: string, schema: object): void {
   let script = document.querySelector(`script[data-schema-id="${id}"]`);
 
@@ -103,6 +108,97 @@ export function WebApplicationSchema(): null {
 
     setJsonLd('webapplication', schema);
   }, []);
+
+  return null;
+}
+
+export function LocalBusinessSchema(): null {
+  useEffect(() => {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': `${SEO_CONFIG.siteUrl}/#business`,
+      name: SEO_CONFIG.siteName,
+      description: SEO_CONFIG.defaultDescription,
+      url: SEO_CONFIG.siteUrl,
+      logo: `${SEO_CONFIG.siteUrl}/favicon.jpeg`,
+      image: SEO_CONFIG.defaultImage,
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'ZA',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        addressCountry: 'ZA',
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'South Africa',
+      },
+      serviceType: [
+        'Firearms License Management',
+        'PSIRA Registration Tracking',
+        'Compliance Management',
+        'Vehicle License Tracking',
+      ],
+      priceRange: 'R50-R500',
+    };
+
+    setJsonLd('localbusiness', schema);
+  }, []);
+
+  return null;
+}
+
+interface FaqSchemaProps {
+  faqs: FaqItem[];
+}
+
+export function FaqSchema({ faqs }: FaqSchemaProps): null {
+  useEffect(() => {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    };
+
+    setJsonLd('faqpage', schema);
+  }, [faqs]);
+
+  return null;
+}
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface BreadcrumbSchemaProps {
+  items: BreadcrumbItem[];
+}
+
+export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps): null {
+  useEffect(() => {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    };
+
+    setJsonLd('breadcrumb', schema);
+  }, [items]);
 
   return null;
 }

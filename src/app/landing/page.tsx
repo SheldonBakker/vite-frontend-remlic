@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { useAuthContext } from '@/context/authContext';
 import { SupportDialog } from '@/components/support/SupportDialog';
-import { Seo, OrganizationSchema, WebSiteSchema, WebApplicationSchema } from '@/components/seo';
+import { Seo, OrganizationSchema, WebSiteSchema, WebApplicationSchema, LocalBusinessSchema } from '@/components/seo';
 import { PAGE_SEO } from '@/constants/seo';
 import logoImage from '@/assets/images/logo.png';
 
@@ -37,6 +37,7 @@ export default function LandingPage(): React.JSX.Element {
       <OrganizationSchema />
       <WebSiteSchema />
       <WebApplicationSchema />
+      <LocalBusinessSchema />
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2">
@@ -397,6 +398,9 @@ export default function LandingPage(): React.JSX.Element {
               <span className="font-semibold">Remlic</span>
             </Link>
             <nav className="flex items-center gap-6">
+              <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground">
+                FAQ
+              </Link>
               <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground">
                 Terms and Conditions
               </Link>
