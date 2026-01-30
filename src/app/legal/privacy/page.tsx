@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Seo } from '@/components/seo';
+import { PAGE_SEO } from '@/constants/seo';
 
 export default function PrivacyPage(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title={PAGE_SEO.privacy.title}
+        description={PAGE_SEO.privacy.description}
+        path={PAGE_SEO.privacy.path}
+      />
       <div className="container mx-auto max-w-4xl px-4 py-12">
         <Link to="/">
           <Button variant="ghost" className="mb-8">

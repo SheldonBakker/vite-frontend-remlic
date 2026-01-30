@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/api/supabaseClient';
 import { CheckCircle2, ArrowLeft, AlertCircle } from 'lucide-react';
+import { Seo } from '@/components/seo';
+import { PAGE_SEO } from '@/constants/seo';
 
 export default function ResetPasswordPage(): React.JSX.Element {
   const navigate = useNavigate();
@@ -89,6 +91,12 @@ export default function ResetPasswordPage(): React.JSX.Element {
   if (isValidSession === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Seo
+          title={PAGE_SEO.resetPassword.title}
+          description={PAGE_SEO.resetPassword.description}
+          path={PAGE_SEO.resetPassword.path}
+          noIndex={PAGE_SEO.resetPassword.noIndex}
+        />
         <Card className="w-full max-w-md">
           <CardContent className="py-8">
             <div className="flex justify-center">
@@ -104,6 +112,12 @@ export default function ResetPasswordPage(): React.JSX.Element {
   if (!isValidSession) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Seo
+          title={PAGE_SEO.resetPassword.title}
+          description={PAGE_SEO.resetPassword.description}
+          path={PAGE_SEO.resetPassword.path}
+          noIndex={PAGE_SEO.resetPassword.noIndex}
+        />
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <div className="flex justify-center mb-4">
@@ -135,6 +149,12 @@ export default function ResetPasswordPage(): React.JSX.Element {
   if (isSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Seo
+          title={PAGE_SEO.resetPassword.title}
+          description={PAGE_SEO.resetPassword.description}
+          path={PAGE_SEO.resetPassword.path}
+          noIndex={PAGE_SEO.resetPassword.noIndex}
+        />
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <div className="flex justify-center mb-4">
@@ -159,6 +179,12 @@ export default function ResetPasswordPage(): React.JSX.Element {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <Seo
+        title={PAGE_SEO.resetPassword.title}
+        description={PAGE_SEO.resetPassword.description}
+        path={PAGE_SEO.resetPassword.path}
+        noIndex={PAGE_SEO.resetPassword.noIndex}
+      />
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Reset your password</CardTitle>

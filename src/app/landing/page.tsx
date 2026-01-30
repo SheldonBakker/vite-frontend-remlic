@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { useAuthContext } from '@/context/authContext';
 import { SupportDialog } from '@/components/support/SupportDialog';
+import { Seo, OrganizationSchema, WebSiteSchema, WebApplicationSchema } from '@/components/seo';
+import { PAGE_SEO } from '@/constants/seo';
 import logoImage from '@/assets/images/logo.png';
 
 export default function LandingPage(): React.JSX.Element {
@@ -27,6 +29,14 @@ export default function LandingPage(): React.JSX.Element {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title={PAGE_SEO.home.title}
+        description={PAGE_SEO.home.description}
+        path={PAGE_SEO.home.path}
+      />
+      <OrganizationSchema />
+      <WebSiteSchema />
+      <WebApplicationSchema />
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2">

@@ -3,6 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/context/authContext';
 import { ThemeProvider } from '@/context/themeContext';
@@ -148,15 +149,17 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <SubscriptionProvider>
-            <RouterProvider router={router} />
-            <Toaster />
-          </SubscriptionProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AuthProvider>
+            <SubscriptionProvider>
+              <RouterProvider router={router} />
+              <Toaster />
+            </SubscriptionProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   </React.StrictMode>,
 );

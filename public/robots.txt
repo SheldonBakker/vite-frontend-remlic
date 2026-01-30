@@ -1,5 +1,5 @@
 # Robots.txt for Remlic
-# https://firearmstudio.com
+# https://remlic.co.za
 
 User-agent: *
 Allow: /
@@ -12,8 +12,12 @@ Allow: /privacy
 Disallow: /dashboard
 Disallow: /dashboard/*
 
+# Disallow password reset pages
+Disallow: /forgot-password
+Disallow: /reset-password
+
 # Sitemap location
-Sitemap: https://firearmstudio.com/sitemap.xml
+Sitemap: https://remlic.co.za/sitemap.xml
 
 # Crawl-delay (optional, helps prevent overloading)
 Crawl-delay: 1

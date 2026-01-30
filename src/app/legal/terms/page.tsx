@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Seo } from '@/components/seo';
+import { PAGE_SEO } from '@/constants/seo';
 
 export default function TermsPage(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title={PAGE_SEO.terms.title}
+        description={PAGE_SEO.terms.description}
+        path={PAGE_SEO.terms.path}
+      />
       <div className="container mx-auto max-w-4xl px-4 py-12">
         <Link to="/">
           <Button variant="ghost" className="mb-8">

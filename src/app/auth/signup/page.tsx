@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Seo } from '@/components/seo';
+import { PAGE_SEO } from '@/constants/seo';
 
 const signupSchema = z.object({
   email: 
@@ -75,6 +77,11 @@ export default function SignupPage(): React.JSX.Element {
   if (successMessage) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Seo
+          title={PAGE_SEO.signup.title}
+          description={PAGE_SEO.signup.description}
+          path={PAGE_SEO.signup.path}
+        />
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">Success</CardTitle>
@@ -94,6 +101,11 @@ export default function SignupPage(): React.JSX.Element {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <Seo
+        title={PAGE_SEO.signup.title}
+        description={PAGE_SEO.signup.description}
+        path={PAGE_SEO.signup.path}
+      />
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
