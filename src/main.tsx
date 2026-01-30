@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { AuthProvider } from '@/context/authContext';
 import { ThemeProvider } from '@/context/themeContext';
 import { SubscriptionProvider } from '@/context/subscriptionContext';
@@ -159,6 +160,7 @@ createRoot(rootElement).render(
           <SubscriptionProvider>
             <RouterProvider router={router} />
             <Toaster />
+            <SpeedInsights />
           </SubscriptionProvider>
         </AuthProvider>
       </ThemeProvider>
