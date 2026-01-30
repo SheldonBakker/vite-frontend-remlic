@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuthContext } from '@/context/authContext';
 import { Button } from '@/components/ui/button';
+import { SEO_CONFIG } from '@/constants/seo';
 import {
   Sidebar,
   SidebarContent,
@@ -99,6 +100,10 @@ export default function DashboardLayout(): React.JSX.Element {
 
   const currentNavItem = allNavItems.find((item) => item.url === location.pathname);
   const pageTitle = currentNavItem?.title ?? 'Dashboard';
+
+  useEffect(() => {
+    document.title = `${pageTitle} | ${SEO_CONFIG.siteName}`;
+  }, [pageTitle]);
 
   return (
     <SidebarProvider>
