@@ -19,6 +19,3 @@ Disallow: /reset-password
 
 # Sitemap location
 Sitemap: https://remlic.co.za/sitemap.xml
-
-# Crawl-delay (optional, helps prevent overloading)
-Crawl-delay: 1
