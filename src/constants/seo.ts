@@ -3,7 +3,7 @@ export const SEO_CONFIG = {
   siteUrl: 'https://remlic.co.za',
   defaultTitle: 'Remlic - Firearms License Management',
   defaultDescription:
-    'Manage your firearms licenses, vehicle registrations, and PSIRA records in one place. Track expiry dates and stay compliant with ease.',
+    'South Africa\'s leading firearms license and PSIRA registration tracker. Manage gun license renewals, PSIRA certificates, vehicle license discs, and compliance records. Never miss an expiry date.',
   defaultImage: 'https://remlic.co.za/og-image.png',
   locale: 'en_ZA',
   twitterHandle: '@remlic',
