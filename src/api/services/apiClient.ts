@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'sonner';
 import { supabase } from '../supabaseClient';
 
 const apiClient = axios.create({
@@ -27,7 +28,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      void supabase.auth.signOut();
+      toast.error('Unauthorized. Please try again or re-login.');
     }
     return Promise.reject(error);
   },
