@@ -56,10 +56,10 @@ export default function LandingPage(): React.JSX.Element {
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="ghost">Log in</Button>
+                  <Button variant="secondary">Log in</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button>Get Started</Button>
+                  <Button>Signup</Button>
                 </Link>
               </>
             )}
@@ -96,7 +96,7 @@ export default function LandingPage(): React.JSX.Element {
               </Link>
             ) : (
               <Link to="/signup">
-                <Button size="lg">Get Started</Button>
+                <Button size="lg">Signup</Button>
               </Link>
             )}
             <Button size="lg" variant="outline" onClick={() => setSupportDialogOpen(true)}>
@@ -243,7 +243,7 @@ export default function LandingPage(): React.JSX.Element {
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <Link to={isLoggedIn ? '/dashboard' : '/signup'}>
-                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Get Started'}</Button>
+                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Signup'}</Button>
                 </Link>
               </CardContent>
             </Card>
@@ -264,7 +264,7 @@ export default function LandingPage(): React.JSX.Element {
                   <span className="text-muted-foreground">/year</span>
                 </div>
                 <Link to={isLoggedIn ? '/dashboard' : '/signup'}>
-                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Get Started'}</Button>
+                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Signup'}</Button>
                 </Link>
               </CardContent>
             </Card>
@@ -393,7 +393,7 @@ export default function LandingPage(): React.JSX.Element {
             ) : (
               <Link to="/signup">
                 <Button size="lg" variant="secondary">
-                  Get Started
+                  Signup
                 </Button>
               </Link>
             )}

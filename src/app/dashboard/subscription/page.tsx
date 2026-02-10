@@ -145,7 +145,7 @@ export default function SubscriptionPage(): React.JSX.Element {
             </div>
             <CardTitle>No Active Subscription</CardTitle>
             <CardDescription>
-              Choose a plan below to get started with Remlic.
+              Choose a plan below to Signup with Remlic.
             </CardDescription>
           </CardHeader>
         </Card>
