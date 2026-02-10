@@ -67,6 +67,17 @@ export default function LandingPage(): React.JSX.Element {
         </div>
       </header>
 
+      {!isLoggedIn && (
+        <div className="bg-red-600 px-4 py-3 text-center text-white">
+          <Link to="/signup" className="inline-flex items-center gap-2 font-bold tracking-wide">
+            <span className="text-lg md:text-xl">FIRST MONTH FREE TRIAL ON SIGNUP</span>
+            <span className="rounded-full bg-white px-3 py-0.5 text-sm font-bold text-red-600">
+              Sign Up Now
+            </span>
+          </Link>
+        </div>
+      )}
+
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
@@ -232,7 +243,7 @@ export default function LandingPage(): React.JSX.Element {
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <Link to={isLoggedIn ? '/dashboard' : '/signup'}>
-                  <Button className="w-full">Get Started</Button>
+                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Get Started'}</Button>
                 </Link>
               </CardContent>
             </Card>
@@ -253,7 +264,7 @@ export default function LandingPage(): React.JSX.Element {
                   <span className="text-muted-foreground">/year</span>
                 </div>
                 <Link to={isLoggedIn ? '/dashboard' : '/signup'}>
-                  <Button className="w-full">Get Started</Button>
+                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Get Started'}</Button>
                 </Link>
               </CardContent>
             </Card>
