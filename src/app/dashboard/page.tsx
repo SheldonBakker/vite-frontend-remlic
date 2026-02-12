@@ -364,8 +364,13 @@ export default function DashboardPage(): React.JSX.Element {
 
   if (!hasInitialized || isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-100">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      <div>
+        <Skeleton className="h-7 w-32 mb-4" />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, index) => (
+            <ExpiringRecordCardSkeleton key={index} />
+          ))}
+        </div>
       </div>
     );
   }

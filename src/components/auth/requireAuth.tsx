@@ -2,6 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useAuthContext } from '@/context/authContext';
 import type { AppRoles } from '@/types/auth';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface RequireAuthProps {
   children: ReactNode;
@@ -15,7 +16,12 @@ export function RequireAuth({ children, allowedRoles }: RequireAuthProps): React
   if (isUserLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-muted-foreground">Loading...</div>
+        <div className="w-full max-w-sm space-y-4 p-4">
+          <Skeleton className="h-8 w-48 mx-auto" />
+          <Skeleton className="h-4 w-64 mx-auto" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+        </div>
       </div>
     );
   }

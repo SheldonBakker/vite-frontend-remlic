@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useSubscriptionContext } from '@/context/subscriptionContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Loader2, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
+import { RecordCardSkeleton } from '@/components/skeletons/RecordCardSkeleton';
 import type { PermissionKey } from '@/types/subscription';
 
 interface RequirePermissionProps {
@@ -23,8 +24,10 @@ export function RequirePermission({ permission, children }: RequirePermissionPro
 
   if (!hasInitialized || isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-100">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {[...Array(3)].map((_, index) => (
+          <RecordCardSkeleton key={index} />
+        ))}
       </div>
     );
   }

@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/api/supabaseClient';
 import { CheckCircle2, ArrowLeft, AlertCircle } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Seo } from '@/components/seo';
 import { PAGE_SEO } from '@/constants/seo';
 
@@ -98,11 +99,20 @@ export default function ResetPasswordPage(): React.JSX.Element {
           noIndex={PAGE_SEO.resetPassword.noIndex}
         />
         <Card className="w-full max-w-md">
-          <CardContent className="py-8">
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          <CardHeader className="space-y-1">
+            <Skeleton className="h-7 w-48 mx-auto" />
+            <Skeleton className="h-4 w-56 mx-auto" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-10 w-full" />
             </div>
-            <p className="text-center text-muted-foreground mt-4">Verifying reset link...</p>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <Skeleton className="h-10 w-full" />
           </CardContent>
         </Card>
       </div>
