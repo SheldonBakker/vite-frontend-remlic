@@ -46,3 +46,15 @@ export function getExpiryStatusClasses(expiryDate: string, daysThreshold = 30): 
   }
   return 'text-muted-foreground';
 }
+
+export function getExpiryBadgeProps(expiryDate: string, daysThreshold = 30): { label: string; variant: 'default' | 'destructive' | 'warning' } {
+  const { isExpired, isExpiringSoon } = getExpiryStatus(expiryDate, daysThreshold);
+
+  if (isExpired) {
+    return { label: 'Expired', variant: 'destructive' };
+  }
+  if (isExpiringSoon) {
+    return { label: 'Expiring Soon', variant: 'warning' };
+  }
+  return { label: 'Valid', variant: 'default' };
+}

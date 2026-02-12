@@ -1,10 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { EditCertificateDialog } from '@/components/certificates/EditCertificateDialog';
 import { Trash2, Calendar, Award, Pencil } from 'lucide-react';
 import type { Certificate } from '@/api/services/certificatesApi';
+import { getExpiryBadgeProps } from '@/lib/utils';
 
 interface CertificateCardProps {
   certificate: Certificate;
@@ -35,16 +37,7 @@ export function CertificateCard({ certificate, onDelete, onEdit, isDeleting }: C
     setEditOpen(false);
   };
 
-  const { isExpired, isExpiringSoon } = useMemo(() => {
-    const now = new Date();
-    const expiryDate = new Date(certificate.expiry_date);
-    const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
-    const expired = expiryDate < now;
-    return {
-      isExpired: expired,
-      isExpiringSoon: !expired && expiryDate < thirtyDaysFromNow,
-    };
-  }, [certificate.expiry_date]);
+  const expiryStatus = getExpiryBadgeProps(certificate.expiry_date);
 
   return (
     <>
@@ -91,15 +84,11 @@ export function CertificateCard({ certificate, onDelete, onEdit, isDeleting }: C
                 <Calendar className="h-3 w-3" />
                 Expires
               </span>
-              <span className={
-                isExpired
-                  ? 'text-destructive font-medium'
-                  : isExpiringSoon
-                    ? 'text-orange-500 font-medium'
-                    : ''
-              }>
-                {formatDate(certificate.expiry_date)}
-              </span>
+              <span>{formatDate(certificate.expiry_date)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-muted-foreground">Status</span>
+              <Badge variant={expiryStatus.variant}>{expiryStatus.label}</Badge>
             </div>
           </div>
         </CardContent>

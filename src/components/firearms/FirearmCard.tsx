@@ -1,10 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { EditFirearmDialog } from '@/components/firearms/EditFirearmDialog';
 import { Trash2, Calendar, Pencil } from 'lucide-react';
 import type { Firearm } from '@/api/services/firearmsApi';
+import { getExpiryBadgeProps } from '@/lib/utils';
 
 import pistolSvg from '@/assets/svgs/pistol.svg';
 import revolverSvg from '@/assets/svgs/revolver.svg';
@@ -49,17 +51,7 @@ export function FirearmCard({ firearm, onDelete, onEdit, isDeleting }: FirearmCa
     setEditOpen(false);
   };
 
-  const { isExpired, isExpiringSoon } = useMemo(() => {
-    const now = new Date();
-    const expiryDate = new Date(firearm.expiry_date);
-    const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
-    const expired = expiryDate < now;
-    return {
-      isExpired: expired,
-      isExpiringSoon: !expired && expiryDate < thirtyDaysFromNow,
-    };
-  }, [firearm.expiry_date]);
-
+  const expiryStatus = getExpiryBadgeProps(firearm.expiry_date);
   const iconSrc = firearmTypeIcons[firearm.type];
 
   return (
@@ -117,15 +109,11 @@ export function FirearmCard({ firearm, onDelete, onEdit, isDeleting }: FirearmCa
                 <Calendar className="h-3 w-3" />
                 Expires
               </span>
-              <span className={
-                isExpired
-                  ? 'text-destructive font-medium'
-                  : isExpiringSoon
-                    ? 'text-orange-500 font-medium'
-                    : ''
-              }>
-                {formatDate(firearm.expiry_date)}
-              </span>
+              <span>{formatDate(firearm.expiry_date)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-muted-foreground">Status</span>
+              <Badge variant={expiryStatus.variant}>{expiryStatus.label}</Badge>
             </div>
           </div>
         </CardContent>
