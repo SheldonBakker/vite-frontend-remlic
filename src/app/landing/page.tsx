@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -23,9 +23,12 @@ import { PAGE_SEO } from '@/constants/seo';
 import logoImage from '@/assets/images/logo.png';
 
 export default function LandingPage(): React.JSX.Element {
-  const { authUser } = useAuthContext();
-  const isLoggedIn = !!authUser;
+  const { isAuthenticated } = useAuthContext();
   const [supportDialogOpen, setSupportDialogOpen] = useState(false);
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,34 +52,24 @@ export default function LandingPage(): React.JSX.Element {
               <MessageCircle className="mr-2 h-4 w-4" />
               Support
             </Button>
-            {isLoggedIn ? (
-              <Link to="/dashboard">
-                <Button>Dashboard</Button>
-              </Link>
-            ) : (
-              <>
-                <Link to="/login">
-                  <Button variant="secondary">Log in</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button>Signup</Button>
-                </Link>
-              </>
-            )}
+            <Link to="/login">
+              <Button variant="secondary">Log in</Button>
+            </Link>
+            <Link to="/signup">
+              <Button>Signup</Button>
+            </Link>
           </nav>
         </div>
       </header>
 
-      {!isLoggedIn && (
-        <div className="bg-red-600 px-4 py-3 text-center text-white">
-          <Link to="/signup" className="inline-flex items-center gap-2 font-bold tracking-wide">
-            <span className="text-lg md:text-xl">FIRST MONTH FREE TRIAL ON SIGNUP</span>
-            <span className="rounded-full bg-white px-3 py-0.5 text-sm font-bold text-red-600">
-              Sign Up Now
-            </span>
-          </Link>
-        </div>
-      )}
+      <div className="bg-red-600 px-4 py-3 text-center text-white">
+        <Link to="/signup" className="inline-flex items-center gap-2 font-bold tracking-wide">
+          <span className="text-lg md:text-xl">FIRST MONTH FREE TRIAL ON SIGNUP</span>
+          <span className="rounded-full bg-white px-3 py-0.5 text-sm font-bold text-red-600">
+            Sign Up Now
+          </span>
+        </Link>
+      </div>
 
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
@@ -90,15 +83,9 @@ export default function LandingPage(): React.JSX.Element {
             anything expires.
           </p>
           <div className="mt-10 flex justify-center gap-4">
-            {isLoggedIn ? (
-              <Link to="/dashboard">
-                <Button size="lg">Go to Dashboard</Button>
-              </Link>
-            ) : (
-              <Link to="/signup">
-                <Button size="lg">Signup</Button>
-              </Link>
-            )}
+            <Link to="/signup">
+              <Button size="lg">Signup</Button>
+            </Link>
             <Button size="lg" variant="outline" onClick={() => setSupportDialogOpen(true)}>
               <MessageCircle className="mr-2 h-5 w-5" />
               Contact Support
@@ -242,8 +229,8 @@ export default function LandingPage(): React.JSX.Element {
                   <span className="text-4xl font-bold">R50</span>
                   <span className="text-muted-foreground">/month</span>
                 </div>
-                <Link to={isLoggedIn ? '/dashboard' : '/signup'}>
-                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Signup'}</Button>
+                <Link to="/signup">
+                  <Button className="w-full">Signup</Button>
                 </Link>
               </CardContent>
             </Card>
@@ -263,8 +250,8 @@ export default function LandingPage(): React.JSX.Element {
                   <span className="text-4xl font-bold">R500</span>
                   <span className="text-muted-foreground">/year</span>
                 </div>
-                <Link to={isLoggedIn ? '/dashboard' : '/signup'}>
-                  <Button className="w-full">{isLoggedIn ? 'Go to Dashboard' : 'Signup'}</Button>
+                <Link to="/signup">
+                  <Button className="w-full">Signup</Button>
                 </Link>
               </CardContent>
             </Card>
@@ -384,19 +371,11 @@ export default function LandingPage(): React.JSX.Element {
             in one unified dashboard.
           </p>
           <div className="mt-8">
-            {isLoggedIn ? (
-              <Link to="/dashboard">
-                <Button size="lg" variant="secondary">
-                  Go to Dashboard
-                </Button>
-              </Link>
-            ) : (
-              <Link to="/signup">
-                <Button size="lg" variant="secondary">
-                  Signup
-                </Button>
-              </Link>
-            )}
+            <Link to="/signup">
+              <Button size="lg" variant="secondary">
+                Signup
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
