@@ -8,14 +8,14 @@
   "theme_color": "#0a0a0a",
   "icons": [
     {
-      "src": "/favicon.jpeg",
+      "src": "/favicon.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
     },
     {
-      "src": "/favicon.jpeg",
+      "src": "/favicon.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ],
   "categories": ["business", "productivity", "utilities"],
