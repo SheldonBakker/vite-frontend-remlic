@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/sidebar';
 import { User, LogOut, Crosshair, Shield, Car, LayoutDashboard, Award, Settings, CreditCard, ShieldCheck, Package as PackageIcon, IdCard } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { MobileAppDownloadDialog } from '@/components/ui/mobile-app-download-dialog';
 import logoImage from '@/assets/images/logo.png';
 
 const mainItems = [
@@ -226,6 +227,7 @@ export default function DashboardLayout(): React.JSX.Element {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <MobileAppDownloadDialog />
             {pageHeaderContent}
           </div>
         </header>

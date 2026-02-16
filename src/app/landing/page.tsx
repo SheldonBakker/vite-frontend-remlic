@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Shield,
   Target,
   Car,
+  IdCard,
   GraduationCap,
   BarChart3,
   Clock,
@@ -211,6 +213,47 @@ export default function LandingPage(): React.JSX.Element {
         </div>
       </section>
 
+      <section className="border-t py-20">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-3xl">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold">Mobile App Scanning Status</h2>
+              <p className="mt-4 text-muted-foreground">
+                We are actively rolling out mobile scanning features across key compliance record types.
+              </p>
+            </div>
+
+            <Card className="mt-10">
+              <CardContent className="space-y-4 pt-6">
+                <div className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-3">
+                    <Target className="size-5 text-primary" />
+                    <span className="font-medium">Firearm Licence Scanning</span>
+                  </div>
+                  <Badge variant="warning">In Development</Badge>
+                </div>
+
+                <div className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-3">
+                    <Car className="size-5 text-primary" />
+                    <span className="font-medium">Vehicle Scanning</span>
+                  </div>
+                  <Badge>Available</Badge>
+                </div>
+
+                <div className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-3">
+                    <IdCard className="size-5 text-primary" />
+                    <span className="font-medium">Drivers Licence Scanning</span>
+                  </div>
+                  <Badge>Available</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center">
@@ -226,7 +269,7 @@ export default function LandingPage(): React.JSX.Element {
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <span className="text-4xl font-bold">R50</span>
+                  <span className="text-4xl font-bold">R400</span>
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <Link to="/signup">
@@ -243,11 +286,11 @@ export default function LandingPage(): React.JSX.Element {
               </div>
               <CardHeader>
                 <CardTitle>Yearly</CardTitle>
-                <CardDescription>Save R100 (2 months free)</CardDescription>
+                <CardDescription>Save R800 (2 months free)</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <span className="text-4xl font-bold">R500</span>
+                  <span className="text-4xl font-bold">R4000</span>
                   <span className="text-muted-foreground">/year</span>
                 </div>
                 <Link to="/signup">

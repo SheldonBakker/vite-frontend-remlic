@@ -4,8 +4,8 @@ export interface PricingInfo {
 }
 
 export const PRICING: Record<string, PricingInfo> = {
-  monthly: { amount: 'R50', period: 'month' },
-  yearly: { amount: 'R500', period: 'year' },
+  monthly: { amount: 'R400', period: 'month' },
+  yearly: { amount: 'R4000', period: 'year' },
 };
 
 export function getPricing(type: string): PricingInfo {
