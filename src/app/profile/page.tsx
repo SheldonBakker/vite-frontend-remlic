@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, Shield, Calendar, Key } from 'lucide-react';
+import { Mail, Phone, Shield, Calendar, Key, Trash2 } from 'lucide-react';
 import { getProfile, type Profile } from '@/api/services/profileApi';
 import { ProfileSkeleton } from '@/components/skeletons/ProfileSkeleton';
 import { ChangePasswordDialog } from '@/components/profile/ChangePasswordDialog';
+import { DeleteAccountDialog } from '@/components/profile/DeleteAccountDialog';
 import { ErrorCard } from '@/components/ui/error-card';
 import { PageHeader } from '@/components/ui/page-header';
 import { InfoCard } from '@/components/profile/InfoCard';
@@ -15,6 +16,7 @@ export default function ProfilePage(): React.JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+  const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async (): Promise<void> => {
@@ -92,6 +94,35 @@ export default function ProfilePage(): React.JSX.Element {
       <ChangePasswordDialog
         open={changePasswordOpen}
         onOpenChange={setChangePasswordOpen}
+      />
+
+      <PageHeader title="Danger Zone" description="Irreversible actions for your account." />
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10">
+                  <Trash2 className="h-5 w-5 text-destructive" />
+                </div>
+                <div>
+                  <CardTitle className="text-base">Delete Account</CardTitle>
+                  <CardDescription>Permanently delete your account and all data</CardDescription>
+                </div>
+              </div>
+              <Button variant="destructive" size="sm" onClick={() => setDeleteAccountOpen(true)}>
+                Delete
+              </Button>
+            </div>
+          </CardHeader>
+        </Card>
+      </div>
+
+      <DeleteAccountDialog
+        open={deleteAccountOpen}
+        onOpenChange={setDeleteAccountOpen}
+        email={profile.email}
       />
     </div>
   );
