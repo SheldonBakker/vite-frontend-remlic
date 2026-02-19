@@ -17,6 +17,7 @@ import {
   Plus,
   Edit,
   Bell,
+  ExternalLink,
 } from 'lucide-react';
 import { useAuthContext } from '@/context/authContext';
 import { SupportDialog } from '@/components/support/SupportDialog';
@@ -111,7 +112,7 @@ export default function LandingPage(): React.JSX.Element {
                 <Shield className="size-10 text-primary" />
                 <CardTitle className="mt-4">PSIRA Officers</CardTitle>
                 <CardDescription>
-                  Look up officers directly from the PSIRA database using their ID number
+                  Verify PSIRA registration details using publicly available official sources
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -225,14 +226,6 @@ export default function LandingPage(): React.JSX.Element {
 
             <Card className="mt-10">
               <CardContent className="space-y-4 pt-6">
-                <div className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-3">
-                    <Target className="size-5 text-primary" />
-                    <span className="font-medium">Firearm Licence Scanning</span>
-                  </div>
-                  <Badge variant="warning">In Development</Badge>
-                </div>
-
                 <div className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-3">
                     <Car className="size-5 text-primary" />
@@ -423,6 +416,55 @@ export default function LandingPage(): React.JSX.Element {
         </div>
       </section>
 
+      <section className="border-t bg-muted/50 py-16">
+        <div className="container mx-auto max-w-3xl px-4">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold">Official Information Sources</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Data referenced in Remlic is sourced from the following official government websites
+            </p>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <a
+              href="https://www.psira.co.za"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-2 rounded-lg border bg-background p-4 transition-colors hover:bg-muted"
+            >
+              <Shield className="size-6 text-primary" />
+              <span className="text-sm font-medium">PSIRA</span>
+              <span className="flex items-center gap-1 text-xs text-primary underline">
+                psira.co.za <ExternalLink className="size-3" />
+              </span>
+            </a>
+            <a
+              href="https://www.enatis.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-2 rounded-lg border bg-background p-4 transition-colors hover:bg-muted"
+            >
+              <Car className="size-6 text-primary" />
+              <span className="text-sm font-medium">eNatis</span>
+              <span className="flex items-center gap-1 text-xs text-primary underline">
+                enatis.com <ExternalLink className="size-3" />
+              </span>
+            </a>
+            <a
+              href="https://www.saps.gov.za"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-2 rounded-lg border bg-background p-4 transition-colors hover:bg-muted"
+            >
+              <Target className="size-6 text-primary" />
+              <span className="text-sm font-medium">SAPS</span>
+              <span className="flex items-center gap-1 text-xs text-primary underline">
+                saps.gov.za <ExternalLink className="size-3" />
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
@@ -443,6 +485,16 @@ export default function LandingPage(): React.JSX.Element {
             </nav>
             <p className="text-sm text-muted-foreground">
               &copy; {new Date().getFullYear()} Remlic. All rights reserved.
+            </p>
+          </div>
+          <div className="mt-8 border-t pt-6">
+            <p className="text-center text-xs text-muted-foreground">
+              <span className="font-semibold">Disclaimer:</span>{' '}
+              Remlic is a privately developed compliance management application
+              and is not affiliated with, endorsed by, or officially connected to
+              the Private Security Industry Regulatory Authority (PSIRA), the South
+              African Police Service (SAPS), eNatis, or any other government entity.
+              All government information is sourced from publicly available official websites.
             </p>
           </div>
         </div>
