@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-const APK_DOWNLOAD_URL = 'https://drive.google.com/file/d/12nt6mRFVLEMMqg2Y8IgaGyBvupTJh3RV/view?usp=sharing';
+const PLAY_STORE_TESTING_URL = 'https://play.google.com/apps/testing/za.co.remlic.mobile';
 
 export function MobileAppDownloadDialog(): React.JSX.Element {
   return (
@@ -29,21 +29,21 @@ export function MobileAppDownloadDialog(): React.JSX.Element {
         <DialogHeader>
           <DialogTitle>Mobile App Download</DialogTitle>
           <DialogDescription>
-            App Store and Play Store builds coming soon.
+            The Android app is currently in closed testing on Google Play.
           </DialogDescription>
         </DialogHeader>
         <p className="text-sm text-muted-foreground">
-          Offline APK available for Android only. Download here.
+          Join the closed testing program to get early access. App Store build coming soon.
         </p>
         <DialogFooter className="sm:justify-start">
           <Button asChild>
             <a
-              href={APK_DOWNLOAD_URL}
+              href={PLAY_STORE_TESTING_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
               <Download className="h-4 w-4" />
-              Download Android APK
+              Join Closed Testing
             </a>
           </Button>
         </DialogFooter>
