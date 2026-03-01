@@ -37,7 +37,7 @@ export default function SettingsPage(): React.JSX.Element {
     },
     onError: (err) => {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : 'Failed to update setting';
       toast.error(message);
     },

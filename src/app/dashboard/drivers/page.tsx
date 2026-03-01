@@ -99,7 +99,7 @@ function DriversPageContent(): React.JSX.Element {
       toast.success('Driver licence deleted successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to delete driver licence';
       toast.error(message);
     } finally {

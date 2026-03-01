@@ -64,7 +64,7 @@ export default function SubscriptionPage(): React.JSX.Element {
       window.location.href = response.authorization_url;
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to initialize subscription';
       toast.error(message);
       setSubscribingPackageId(null);
@@ -80,7 +80,7 @@ export default function SubscriptionPage(): React.JSX.Element {
       await refreshPermissions();
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to cancel subscription';
       toast.error(message);
     } finally {
@@ -97,7 +97,7 @@ export default function SubscriptionPage(): React.JSX.Element {
       await refreshPermissions();
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to request refund';
       toast.error(message);
     } finally {

@@ -71,7 +71,7 @@ export function EditPermissionDialog({ open, onOpenChange, onSuccess, permission
       toast.success('Permission updated successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to update permission';
       setError(message);
       toast.error(message);

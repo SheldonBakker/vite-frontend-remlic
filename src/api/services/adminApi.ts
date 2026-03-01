@@ -2,7 +2,6 @@ import type { BaseQueryParams } from '@/api/types/shared';
 import type {
   CreatePermissionRequest,
   CreatePackageRequest,
-  CreateSubscriptionRequest,
   DeleteResponse as AdminDeleteResponse,
   IPackage,
   IPermission,
@@ -12,7 +11,6 @@ import type {
   PaginatedSubscriptionsResponse,
   SinglePackageResponse,
   SinglePermissionResponse,
-  SingleSubscriptionResponse,
   SubscriptionStatus,
   UpdatePermissionRequest,
   UpdatePackageRequest,
@@ -26,8 +24,8 @@ export const getPermissions = async (params?: BaseQueryParams): Promise<Paginate
 };
 
 export const getPermissionById = async (id: string): Promise<IPermission> => {
-  const response = await apiClient.get<SinglePermissionResponse>(`/permissions/${id}`);
-  return response.data.data.permission;
+  const response = await apiClient.get<PaginatedPermissionsResponse>('/permissions', { params: { id } });
+  return response.data.data.permissions[0];
 };
 
 export const createPermission = async (data: CreatePermissionRequest): Promise<IPermission> => {
@@ -57,8 +55,8 @@ export const getPackages = async (params?: GetPackagesParams): Promise<Paginated
 };
 
 export const getPackageById = async (id: string): Promise<IPackage> => {
-  const response = await apiClient.get<SinglePackageResponse>(`/packages/${id}`);
-  return response.data.data.package;
+  const response = await apiClient.get<PaginatedPackagesResponse>('/packages', { params: { id } });
+  return response.data.data.packages[0];
 };
 
 export const createPackage = async (data: CreatePackageRequest): Promise<IPackage> => {
@@ -87,22 +85,12 @@ export const getSubscriptions = async (params?: GetSubscriptionsParams): Promise
   return response.data;
 };
 
-export const getSubscriptionById = async (id: string): Promise<ISubscription> => {
-  const response = await apiClient.get<SingleSubscriptionResponse>(`/subscriptions/${id}`);
-  return response.data.data.subscription;
-};
-
-export const createSubscription = async (data: CreateSubscriptionRequest): Promise<ISubscription> => {
-  const response = await apiClient.post<SingleSubscriptionResponse>('/subscriptions', data);
-  return response.data.data.subscription;
-};
-
 export const updateSubscription = async (id: string, data: UpdateSubscriptionRequest): Promise<ISubscription> => {
-  const response = await apiClient.patch<SingleSubscriptionResponse>(`/subscriptions/${id}`, data);
+  const response = await apiClient.patch<{ success: boolean; data: { subscription: ISubscription } }>(`/subscriptions/${id}`, data);
   return response.data.data.subscription;
 };
 
 export const cancelSubscription = async (id: string): Promise<string> => {
-  const response = await apiClient.patch<AdminDeleteResponse>(`/subscriptions/${id}/cancel`);
+  const response = await apiClient.delete<AdminDeleteResponse>(`/subscriptions/${id}`);
   return response.data.data.message;
 };

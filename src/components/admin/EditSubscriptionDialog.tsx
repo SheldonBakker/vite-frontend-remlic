@@ -51,7 +51,7 @@ export function EditSubscriptionDialog({ open, onOpenChange, onSuccess, subscrip
           setPackages(response.data.packages);
         } catch (err) {
           const message = err instanceof AxiosError
-            ? err.response?.data?.error ?? err.message
+            ? err.response?.data?.error?.message ?? err.message
             : 'Failed to load packages';
           toast.error(message);
         } finally {
@@ -121,7 +121,7 @@ export function EditSubscriptionDialog({ open, onOpenChange, onSuccess, subscrip
       toast.success('Subscription updated successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to update subscription';
       setError(message);
       toast.error(message);

@@ -75,7 +75,7 @@ export function AddPsiraDialog({ open, onOpenChange, onSuccess }: AddPsiraDialog
       }
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to search PSIRA records';
       setError(message);
     } finally {
@@ -106,7 +106,7 @@ export function AddPsiraDialog({ open, onOpenChange, onSuccess }: AddPsiraDialog
       toast.success('PSIRA record saved successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to save PSIRA record';
       setError(message);
       toast.error(message);

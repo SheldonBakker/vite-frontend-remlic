@@ -6,13 +6,6 @@ import type {
   IInitializeResponse,
 } from '@/types/subscription';
 
-interface PermissionsResponse {
-  success: boolean;
-  data: {
-    permissions: IUserPermissions;
-  };
-}
-
 interface SubscriptionsResponse {
   success: boolean;
   data: {
@@ -20,13 +13,6 @@ interface SubscriptionsResponse {
   };
   pagination: {
     nextCursor: PaginationCursor | null;
-  };
-}
-
-interface CurrentSubscriptionResponse {
-  success: boolean;
-  data: {
-    subscription: ISubscription | null;
   };
 }
 
@@ -79,27 +65,30 @@ export interface GetSubscriptionsParams {
 }
 
 export async function getMyPermissions(): Promise<IUserPermissions> {
-  const response = await apiClient.get<PermissionsResponse>('/subscriptions/me/permissions');
-  return response.data.data.permissions;
+  const response = await apiClient.get<SubscriptionsResponse>('/subscriptions', {
+    params: { status: 'active' },
+  });
+  const subscriptions = response.data.data.subscriptions;
+  return {
+    psira_access: subscriptions.some((s) => s.app_packages?.app_permissions?.psira_access === true),
+    firearm_access: subscriptions.some((s) => s.app_packages?.app_permissions?.firearm_access === true),
+    vehicle_access: subscriptions.some((s) => s.app_packages?.app_permissions?.vehicle_access === true),
+    certificate_access: subscriptions.some((s) => s.app_packages?.app_permissions?.certificate_access === true),
+    drivers_access: subscriptions.some((s) => s.app_packages?.app_permissions?.drivers_access === true),
+    active_subscriptions: subscriptions.length,
+  };
 }
 
 export async function getMySubscriptions(params?: GetSubscriptionsParams): Promise<SubscriptionsResponse> {
-  const searchParams = new URLSearchParams();
-  if (params?.cursor) {
-    searchParams.set('cursor', params.cursor);
-  }
-  if (params?.limit) {
-    searchParams.set('limit', params.limit.toString());
-  }
-  const queryString = searchParams.toString();
-  const url = queryString ? `/subscriptions/me?${queryString}` : '/subscriptions/me';
-  const response = await apiClient.get<SubscriptionsResponse>(url);
+  const response = await apiClient.get<SubscriptionsResponse>('/subscriptions', { params });
   return response.data;
 }
 
 export async function getCurrentSubscription(): Promise<ISubscription | null> {
-  const response = await apiClient.get<CurrentSubscriptionResponse>('/subscriptions/me/current');
-  return response.data.data.subscription;
+  const response = await apiClient.get<SubscriptionsResponse>('/subscriptions', {
+    params: { status: 'active', limit: 1 },
+  });
+  return response.data.data.subscriptions[0] ?? null;
 }
 
 export async function getPackages(): Promise<IPackage[]> {
@@ -116,7 +105,7 @@ export async function initializeSubscription(
   packageId: string,
   callbackUrl: string,
 ): Promise<IInitializeResponse> {
-  const response = await apiClient.post<InitializeResponse>('/subscriptions/initialize', {
+  const response = await apiClient.post<InitializeResponse>('/subscriptions?action=initialize', {
     package_id: packageId,
     callback_url: callbackUrl,
   });
@@ -124,12 +113,12 @@ export async function initializeSubscription(
 }
 
 export async function cancelSubscription(subscriptionId: string): Promise<string> {
-  const response = await apiClient.post<CancelResponse>(`/subscriptions/me/${subscriptionId}/cancel`);
+  const response = await apiClient.post<CancelResponse>(`/subscriptions?action=cancel&id=${subscriptionId}`);
   return response.data.data.message;
 }
 
 export async function refundSubscription(subscriptionId: string): Promise<string> {
-  const response = await apiClient.post<RefundResponse>(`/subscriptions/me/${subscriptionId}/refund`);
+  const response = await apiClient.post<RefundResponse>(`/subscriptions?action=refund&id=${subscriptionId}`);
   return response.data.data.message;
 }
 
@@ -139,7 +128,7 @@ export async function changePlan(
   callbackUrl: string,
 ): Promise<IInitializeResponse> {
   const response = await apiClient.post<ChangePlanResponse>(
-    `/subscriptions/me/${subscriptionId}/change-plan`,
+    `/subscriptions?action=change-plan&id=${subscriptionId}`,
     {
       new_package_id: newPackageId,
       callback_url: callbackUrl,

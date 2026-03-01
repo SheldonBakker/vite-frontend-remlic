@@ -25,7 +25,7 @@ export default function ProfilePage(): React.JSX.Element {
         setProfile(data);
       } catch (err) {
         if (err instanceof AxiosError) {
-          setError(err.response?.data?.error ?? err.message);
+          setError(err.response?.data?.error?.message ?? err.message);
         } else {
           setError(err instanceof Error ? err.message : 'An error occurred');
         }

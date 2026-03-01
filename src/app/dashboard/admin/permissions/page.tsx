@@ -75,7 +75,7 @@ export default function PermissionsPage(): React.JSX.Element {
       toast.success('Permission deleted successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to delete permission';
 
       if (err instanceof AxiosError && err.response?.status === 409) {

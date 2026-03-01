@@ -64,7 +64,7 @@ export function AddPermissionDialog({ open, onOpenChange, onSuccess }: AddPermis
       toast.success('Permission created successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to create permission';
       setError(message);
       toast.error(message);

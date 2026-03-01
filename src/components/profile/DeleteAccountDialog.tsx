@@ -60,7 +60,7 @@ export function DeleteAccountDialog({ open, onOpenChange, email }: DeleteAccount
       navigate('/login');
     } catch (err) {
       if (err instanceof AxiosError) {
-        setError(err.response?.data?.error ?? err.message);
+        setError(err.response?.data?.error?.message ?? err.message);
       } else {
         setError(err instanceof Error ? err.message : 'Failed to delete account');
       }

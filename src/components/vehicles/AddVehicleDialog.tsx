@@ -65,7 +65,7 @@ export function AddVehicleDialog({ open, onOpenChange, onSuccess }: AddVehicleDi
       toast.success('Vehicle added successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to add vehicle';
       setError(message);
       toast.error(message);

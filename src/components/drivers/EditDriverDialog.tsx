@@ -65,7 +65,7 @@ export default function EditDriverDialog({ driver, open, onOpenChange, onSuccess
       toast.success('Driver licence updated successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to update driver licence';
       toast.error(message);
     } finally {

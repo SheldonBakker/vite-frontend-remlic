@@ -93,7 +93,7 @@ export default function PackagesPage(): React.JSX.Element {
       toast.success('Package deactivated successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to deactivate package';
       toast.error(message);
     } finally {

@@ -1,5 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useState, useCallback } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getSubscriptions,
@@ -17,14 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { AddSubscriptionDialog } from '@/components/admin/AddSubscriptionDialog';
-import { Plus, Loader2, Search, X } from 'lucide-react';
+import { Loader2, Search, X } from 'lucide-react';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
-
-interface DashboardContext {
-  setPageHeaderContent: (content: React.ReactNode | null)=> void;
-}
 
 const ITEMS_PER_PAGE = 20;
 
@@ -35,13 +29,11 @@ interface Filters {
 
 export default function SubscriptionsPage(): React.JSX.Element {
   const [cancellingSubscriptionId, setCancellingSubscriptionId] = useState<string | null>(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [filters, setFilters] = useState<Filters>({
     status: null,
     profile_id: '',
   });
   const [searchInput, setSearchInput] = useState('');
-  const { setPageHeaderContent } = useOutletContext<DashboardContext>();
   const queryClient = useQueryClient();
 
   const {
@@ -66,26 +58,9 @@ export default function SubscriptionsPage(): React.JSX.Element {
     getNextPageParam: (lastPage) => lastPage.pagination.nextCursor,
   });
 
-  const handleSubscriptionAdded = useCallback((_subscription: ISubscription): void => {
-    void queryClient.invalidateQueries({ queryKey: ['admin-subscriptions'] });
-  }, [queryClient]);
-
   const handleSubscriptionEdited = useCallback((_subscription: ISubscription): void => {
     void queryClient.invalidateQueries({ queryKey: ['admin-subscriptions'] });
   }, [queryClient]);
-
-  useEffect(() => {
-    setPageHeaderContent(
-      <Button size="sm" onClick={() => setDialogOpen(true)}>
-        <Plus className="mr-2 h-4 w-4" />
-        Add Subscription
-      </Button>,
-    );
-
-    return (): void => {
-      setPageHeaderContent(null);
-    };
-  }, [setPageHeaderContent]);
 
   const handleCancelSubscription = async (id: string): Promise<void> => {
     setCancellingSubscriptionId(id);
@@ -95,7 +70,7 @@ export default function SubscriptionsPage(): React.JSX.Element {
       toast.success('Subscription cancelled successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to cancel subscription';
       toast.error(message);
     } finally {
@@ -238,19 +213,9 @@ export default function SubscriptionsPage(): React.JSX.Element {
         {renderFilters()}
         <div className="text-center py-12">
           <p className="text-muted-foreground">
-            {hasActiveFilters ? 'No subscriptions match your filters.' : 'No subscriptions created yet.'}
+            {hasActiveFilters ? 'No subscriptions match your filters.' : 'No subscriptions found.'}
           </p>
-          {!hasActiveFilters && (
-            <p className="text-sm text-muted-foreground mt-1">
-              Click the &quot;Add Subscription&quot; button to create your first subscription.
-            </p>
-          )}
         </div>
-        <AddSubscriptionDialog
-          open={dialogOpen}
-          onOpenChange={setDialogOpen}
-          onSuccess={handleSubscriptionAdded}
-        />
       </>
     );
   }
@@ -287,11 +252,6 @@ export default function SubscriptionsPage(): React.JSX.Element {
           </Button>
         </div>
       )}
-      <AddSubscriptionDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        onSuccess={handleSubscriptionAdded}
-      />
     </>
   );
 }

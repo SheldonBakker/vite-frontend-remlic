@@ -73,7 +73,7 @@ export function AddFirearmDialog({ open, onOpenChange, onSuccess }: AddFirearmDi
       toast.success('Firearm added successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to add firearm';
       setError(message);
       toast.error(message);

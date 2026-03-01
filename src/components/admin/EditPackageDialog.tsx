@@ -54,7 +54,7 @@ export function EditPackageDialog({ open, onOpenChange, onSuccess, package: pkg 
           setPermissions(response.data.permissions);
         } catch (err) {
           const message = err instanceof AxiosError
-            ? err.response?.data?.error ?? err.message
+            ? err.response?.data?.error?.message ?? err.message
             : 'Failed to load permissions';
           toast.error(message);
         } finally {
@@ -120,7 +120,7 @@ export function EditPackageDialog({ open, onOpenChange, onSuccess, package: pkg 
       toast.success('Package updated successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to update package';
       setError(message);
       toast.error(message);

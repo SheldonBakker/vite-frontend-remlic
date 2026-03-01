@@ -82,13 +82,6 @@ export interface UpdatePackageRequest {
   is_active?: boolean;
 }
 
-export interface CreateSubscriptionRequest {
-  profile_id: string;
-  package_id: string;
-  start_date: string;
-  end_date: string;
-}
-
 export interface UpdateSubscriptionRequest {
   profile_id?: string;
   package_id?: string;
@@ -147,15 +140,6 @@ export interface SinglePackageResponse {
   success: boolean;
   data: {
     package: IPackage;
-  };
-  timestamp: string;
-  statusCode: number;
-}
-
-export interface SingleSubscriptionResponse {
-  success: boolean;
-  data: {
-    subscription: ISubscription;
   };
   timestamp: string;
   statusCode: number;

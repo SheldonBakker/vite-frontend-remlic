@@ -51,7 +51,7 @@ export function AddPackageDialog({ open, onOpenChange, onSuccess }: AddPackageDi
           setPermissions(response.data.permissions);
         } catch (err) {
           const message = err instanceof AxiosError
-            ? err.response?.data?.error ?? err.message
+            ? err.response?.data?.error?.message ?? err.message
             : 'Failed to load permissions';
           toast.error(message);
         } finally {
@@ -110,7 +110,7 @@ export function AddPackageDialog({ open, onOpenChange, onSuccess }: AddPackageDi
       toast.success('Package created successfully');
     } catch (err) {
       const message = err instanceof AxiosError
-        ? err.response?.data?.error ?? err.message
+        ? err.response?.data?.error?.message ?? err.message
         : err instanceof Error ? err.message : 'Failed to create package';
       setError(message);
       toast.error(message);
